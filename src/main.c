@@ -1,5 +1,10 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include <stdbool.h>
+#include <time.h>
+
+#include "problem.h"
 
 int menu(char* prompt, char* answers[10], int count){
 	printf("<%s>\n", prompt);
@@ -9,7 +14,7 @@ int menu(char* prompt, char* answers[10], int count){
 		}
 	}
 	int choice;
-	scanf("%i", &choice);
+	getint(&choice);
 	return choice - 1;
 }
 
@@ -18,9 +23,9 @@ void operation(int op){
 	int y;
 	int z;
 	printf("X: ");
-	scanf("%i", &x);
+	getint(&x);
 	printf("Y: ");
-	scanf("%i", &y);
+	getint(&y);
 	switch(op){
 		case 0:
 			z = x + y;
@@ -35,10 +40,11 @@ void operation(int op){
 			z = x / y;
 			break;
 	} 
-	printf("Answer: %i", z);
+	printf("Answer: %i\n", z);
 }
 
 int main(){
+	srand(time(0));
 	bool running = true;
 	int choice;
 	int x;
@@ -49,9 +55,22 @@ int main(){
 		"MUL",
 		"DIV"
 	};
+	char* robot_insults[4] = {
+		"fuck off tin can!",
+		"nice try clanker!",
+		"we don't serve your kind here!",
+		"math is for meat folks, not you rust buckets"
+	};
 	while(running){
+		system("clear");
+		printf("ctrl+c to exit\n");
 		choice = menu("what operation do you want?", operations, 4);
-		operation(choice);
+		if(problem()){
+			operation(choice);
+		} else {
+			printf("%s\n", robot_insults[better_rand(0, 3)]);
+		}
+		sleep(2);
 	}
 	return 0;
 }

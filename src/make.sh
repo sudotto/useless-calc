@@ -1,1 +1,1 @@
-gcc main.c -o calc
+gcc main.c problem.c -o calc
