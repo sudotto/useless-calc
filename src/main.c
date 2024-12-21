@@ -5,6 +5,7 @@
 #include <time.h>
 
 #include "problem.h"
+#include "verify.h"
 
 int menu(char* prompt, char* answers[10], int count){
 	printf("<%s>\n", prompt);
@@ -66,7 +67,10 @@ int main(){
 		printf("ctrl+c to exit\n");
 		choice = menu("what operation do you want?", operations, 4);
 		if(problem()){
-			operation(choice);
+			if(verify()){
+				system("clear");
+				operation(choice);
+			}
 		} else {
 			printf("%s\n", robot_insults[better_rand(0, 3)]);
 		}

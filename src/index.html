@@ -1,0 +1,42 @@
+<html>
+	<head>
+		<title>Calculator/Verify</title>
+	</head>
+	<body>
+		<div>
+			<h1>verify code to continue using calculator</h1>
+		</div>
+		<div>
+			<form method="POST" action="/submit">
+				<b>please enter 4 digit code from terminal:</b>
+				<input name="input_box" type="text" placeholder="xxxx">
+				<button type="submit">go!</button>
+			</form>
+		</div>
+	</body>
+	<style>
+		* {
+			color: black;
+			font-family: monospace;
+		}
+
+		html {
+			background-image: linear-gradient(45deg, red, green, blue);
+			background-size: auto;
+			background-position: center center;
+			background-repeat: repeat;
+			background-size: 4em;;
+			text-align: center;
+		}
+
+		div {
+			margin: 20px;
+			padding: 100px;
+			background-color: gray;
+			border-top: 5px solid white;
+			border-left: 5px solid lightgray;
+			border-right: 5px solid darkgray;
+			border-bottom: 5px solid black;
+		}
+	</style>
+</html>

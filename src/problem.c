@@ -20,6 +20,7 @@ bool getint(int* x){
 }
 
 bool problem(){
+	system("clear");
 	int x = better_rand(0, 100);
 	int y = better_rand(0, 100);
 	int op = better_rand(0, 3);
