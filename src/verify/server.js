@@ -10,7 +10,7 @@ var code = null;
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-	fs.readFile("index.html", "utf8", (err, data) => {
+	fs.readFile("verify/index.html", "utf8", (err, data) => {
 		res.send(data);
 	});
 	var q = url.parse(req.url, true).query;

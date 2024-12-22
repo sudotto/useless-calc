@@ -14,7 +14,7 @@ bool verify(){
 	printf("your verification code is: %i\n", code);
 	sleep(2);
 	char cmd[100];
-	snprintf(cmd, sizeof(cmd), "firefox http://localhost:7777/?c=%i && node server.js", code);
+	snprintf(cmd, sizeof(cmd), "firefox http://localhost:7777/?c=%i && node verify/server.js", code);
 	if(!system(cmd)){
 		return true;
 	}
