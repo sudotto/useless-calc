@@ -20,37 +20,44 @@ int dist(int x_dist, int y_dist){
 
 bullet new_bullet(int x, int y){
 	bullet bu;
-	bu.rect.x = x;
-	bu.rect.y = y;
-	bu.rect.w = 4;
-	bu.rect.h = 4;
-	bu.speed = 3;
+	bu.x = x;
+	bu.y = y;
+	bu.w = 4;
+	bu.h = 4;
+	bu.speed = 0.01;
+	bu.x_vel = 0;
+	bu.y_vel = 0;
 	bu.dead = false;
 	return bu;
 }
 
-bullet move_bullet(bullet bu, player target){
+bullet move_bullet(bullet bu, int x, int y){
 	if(!bu.dead){
-		float dx = bu.rect.x - target.rect.x;
-		float dy = bu.rect.y - target.rect.y;
-		float d = dist(dx, dy);
+		float dx = x - bu.x;
+		float dy = y - bu.y;
+		float d = fabs(dist(dx, dy));
 		float scale = fabs(bu.speed / d);
-		float x = dx * scale;
-		float y = dy * scale;
-		bu.rect.x -= x;// / 10;
-		bu.rect.y -= y;// / 10;
+		bu.x_vel = dx * scale;
+		bu.y_vel = dy * scale;
+		bu.x += bu.x_vel;
+		bu.y += bu.y_vel;
 	}
 	return bu;
 }
 
 bool hit_bullet(bullet bu, player target){
-	if(point_in_rect(bu.rect.x+2, bu.rect.y+2, target.rect)){
+	if(point_in_rect(bu.x+2, bu.y+2, target.rect)){
 		return true;
 	}
 	return false;
 }
 
 void render_bullet(SDL_Renderer* rend, bullet bu){
+	SDL_Rect rect;
+	rect.x = bu.x;
+	rect.y = bu.y;
+	rect.w = bu.w;
+	rect.h = bu.h;
 	SDL_SetRenderDrawColor(rend, 255, 0, 0, 255);
-	SDL_RenderFillRect(rend, &bu.rect);
+	SDL_RenderFillRect(rend, &rect);
 }

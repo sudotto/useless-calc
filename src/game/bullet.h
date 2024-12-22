@@ -10,7 +10,10 @@ bool point_in_rect(int x, int y, SDL_Rect rect);
 int dist(int x_dist, int y_dist);
 
 typedef struct {
-	SDL_Rect rect;
+	float x;
+	float y;
+	float w;
+	float h;
 	bool dead;
 	float speed;
 	float x_vel;
@@ -18,7 +21,7 @@ typedef struct {
 } bullet;
 
 bullet new_bullet(int x, int y);
-bullet move_bullet(bullet bu, player target);
+bullet move_bullet(bullet bu, int x, int y);
 bool hit_bullet(bullet bu, player target);
 void render_bullet(SDL_Renderer* rend, bullet bu);
 

@@ -35,7 +35,7 @@ int main(){
 
 	while(running){
 		frame_start = SDL_GetTicks();
-		test_bu.dead = true;
+		//test_bu.dead = true;
 		while(SDL_PollEvent(&event)){
 			switch(event.type){
 				case SDL_QUIT:
@@ -62,7 +62,7 @@ int main(){
 		pl = control_player(pl, mouse_x, mouse_y);
 		render_player(rend, pl);
 
-		test_bu = move_bullet(test_bu, pl);
+		test_bu = move_bullet(test_bu, pl.rect.x, pl.rect.y);
 
 		render_bullet(rend, test_bu);
 		if(hit_bullet(test_bu, pl)){
