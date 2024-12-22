@@ -24,26 +24,21 @@ bullet new_bullet(int x, int y){
 	bu.rect.y = y;
 	bu.rect.w = 4;
 	bu.rect.h = 4;
-	bu.speed = 10;
+	bu.speed = 3;
 	bu.dead = false;
 	return bu;
 }
 
 bullet move_bullet(bullet bu, player target){
 	if(!bu.dead){
-		/*int hyp = dist(target.rect.x, target.rect.y, bu.rect.x, bu.rect.y);
-		int x = (bu.rect.x - target.rect.x);
-		int y = (bu.rect.y - target.rect.y);
-		bu.rect.x -= (x / hyp) * bu.speed;
-		bu.rect.y -= (y / hyp) * bu.speed;*/
-
-		float x_dist = target.rect.x - bu.rect.x;
-		float y_dist = target.rect.y - bu.rect.y;    
-		float distance = dist(x_dist, y_dist);
-		float dx = x_dist / bu.speed;
-		float dy = y_dist / bu.speed;
-		bu.rect.x += dx;
-		bu.rect.y += dy;
+		float dx = bu.rect.x - target.rect.x;
+		float dy = bu.rect.y - target.rect.y;
+		float d = dist(dx, dy);
+		float scale = fabs(bu.speed / d);
+		float x = dx * scale;
+		float y = dy * scale;
+		bu.rect.x -= x;// / 10;
+		bu.rect.y -= y;// / 10;
 	}
 	return bu;
 }

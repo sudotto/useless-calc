@@ -13,6 +13,8 @@ typedef struct {
 	SDL_Rect rect;
 	bool dead;
 	float speed;
+	float x_vel;
+	float y_vel;
 } bullet;
 
 bullet new_bullet(int x, int y);
