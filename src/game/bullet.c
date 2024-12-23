@@ -5,6 +5,11 @@
 #include "player.h" 
 #include "bullet.h" 
 
+int better_rand(int min, int max){
+	int x = rand() % (max - min + 1);
+	return x;
+}
+
 bool point_in_rect(int x, int y, SDL_Rect rect){
 	if(x >= rect.x && x <= rect.x + rect.w){
 		if(y >= rect.y && y <= rect.y + rect.h){
@@ -18,21 +23,40 @@ int dist(int x_dist, int y_dist){
 	return sqrt((pow(x_dist, 2) + pow(y_dist, 2)));
 }
 
-bullet new_bullet(int x, int y){
+bullet new_bullet(bullet_type type, int x, int y){
 	bullet bu;
+	bu.init = true;
+	bu.type = type;
 	bu.x = x;
 	bu.y = y;
 	bu.w = 4;
 	bu.h = 4;
-	bu.speed = 0.01;
+	bu.speed = 0.025;
+	bu.age = 0;
 	bu.x_vel = 0;
 	bu.y_vel = 0;
 	bu.dead = false;
 	return bu;
 }
 
+bullet new_left_bullet(){
+	return new_bullet(LEFT, 0, better_rand(0, WIN_H));
+}
+
+bullet new_right_bullet(){
+	return new_bullet(RIGHT, WIN_W, better_rand(0, WIN_H));
+}
+
+bullet new_tracker_bullet(){
+	return new_bullet(TRACKER, better_rand(0, WIN_W), 0);
+}
+
+bullet new_stationary_bullet(){
+	return new_bullet(STATIONARY, better_rand(0, WIN_W), better_rand(0, WIN_H));
+}
+
 bullet move_bullet(bullet bu, int x, int y){
-	if(!bu.dead){
+	if(bu.type != STATIONARY){
 		float dx = x - bu.x;
 		float dy = y - bu.y;
 		float d = fabs(dist(dx, dy));
@@ -41,7 +65,16 @@ bullet move_bullet(bullet bu, int x, int y){
 		bu.y_vel = dy * scale;
 		bu.x += bu.x_vel;
 		bu.y += bu.y_vel;
+		if(bu.x == x && bu.y == y){
+			printf("bullet acheived its goal\n");
+			bu.dead = true;
+		}
 	}
+	if(bu.age >= 20000){
+		printf("bullet died of old age\n");
+		bu.dead = true;
+	}
+	bu.age++;
 	return bu;
 }
 
@@ -60,4 +93,23 @@ void render_bullet(SDL_Renderer* rend, bullet bu){
 	rect.h = bu.h;
 	SDL_SetRenderDrawColor(rend, 255, 0, 0, 255);
 	SDL_RenderFillRect(rend, &rect);
+}
+
+int end_bullet(bullet* bullets){
+	for(int i = 0; i < 100; i++){
+		if(!bullets[i].init){
+			return i;
+		}
+	}
+	return 0;
+}
+
+void push_bullet(bullet* bullets, bullet bu){
+	bullets[end_bullet(bullets)] = bu;
+}
+
+void pop_bullet(bullet* bullets, int i){
+	for(i; bullets[i].init; i++){
+		bullets[i] = bullets[i + 1];
+	}
 }

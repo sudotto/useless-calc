@@ -1,6 +1,11 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#define DEBUG 1
+
+#define WIN_W 270
+#define WIN_H 270
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <SDL2/SDL.h>

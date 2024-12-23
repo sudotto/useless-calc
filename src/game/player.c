@@ -23,6 +23,7 @@ player control_player(player pl, int x, int y){
 }
 
 void render_player(SDL_Renderer* rend, player pl){
+	SDL_Rect rect;
 	SDL_SetRenderDrawColor(rend, 0, 255, 0, 255);
 	SDL_RenderFillRect(rend, &pl.rect);
 }
