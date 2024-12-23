@@ -3,6 +3,7 @@
 #include <SDL2/SDL.h>
 
 #include "player.h" 
+#include "level.h" 
 #include "bullet.h" 
 
 int better_rand(int min, int max){
@@ -31,7 +32,7 @@ bullet new_bullet(bullet_type type, int x, int y){
 	bu.y = y;
 	bu.w = 4;
 	bu.h = 4;
-	bu.speed = 0.025;
+	bu.speed = 0.1;
 	bu.age = 0;
 	bu.x_vel = 0;
 	bu.y_vel = 0;
@@ -66,12 +67,10 @@ bullet move_bullet(bullet bu, int x, int y){
 		bu.x += bu.x_vel;
 		bu.y += bu.y_vel;
 		if(bu.x == x && bu.y == y){
-			printf("bullet acheived its goal\n");
 			bu.dead = true;
 		}
 	}
-	if(bu.age >= 20000){
-		printf("bullet died of old age\n");
+	if(bu.age >= GAME_SPEED){
 		bu.dead = true;
 	}
 	bu.age++;
@@ -91,12 +90,16 @@ void render_bullet(SDL_Renderer* rend, bullet bu){
 	rect.y = bu.y;
 	rect.w = bu.w;
 	rect.h = bu.h;
-	SDL_SetRenderDrawColor(rend, 255, 0, 0, 255);
+	if(bu.dead){
+		SDL_SetRenderDrawColor(rend, 255, 255, 255, 255);
+	} else {
+		SDL_SetRenderDrawColor(rend, 255, 0, 0, 255);
+	}
 	SDL_RenderFillRect(rend, &rect);
 }
 
 int end_bullet(bullet* bullets){
-	for(int i = 0; i < 100; i++){
+	for(int i = 0; i < 1000; i++){
 		if(!bullets[i].init){
 			return i;
 		}

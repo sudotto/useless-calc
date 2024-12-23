@@ -62,14 +62,39 @@ int main(){
 		"we don't serve your kind here!",
 		"math is for meat folks, not you rust buckets"
 	};
+	char* bullet_hell[10] = {
+		"give up",
+		"try again"
+	};
 	while(running){
 		system("clear");
 		printf("ctrl+c to exit\n");
 		choice = menu("what operation do you want?", operations, 4);
 		if(problem()){
 			if(verify()){
+				sleep(3);
 				system("clear");
-				operation(choice);
+				printf("so far you have proven your humanity\n");
+				sleep(2);
+				printf("but I can see through your disguise! YOU ARE A MACHINE! \n");
+				sleep(2);
+				printf("PREPARE TO MEET YOUR END! \n");
+				sleep(2);
+				while(1){
+					system("clear");
+					int success = system("./game/game");
+					if(!success){
+						choice = menu("Do you yeild? or are you too stubborn?", bullet_hell, 2);
+						if(!choice){
+							break;
+						}
+					}
+					if(success){
+						system("clear");
+						operation(choice);
+						break;
+					}
+				}
 			}
 		} else {
 			printf("%s\n", robot_insults[better_rand(0, 3)]);

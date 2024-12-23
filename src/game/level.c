@@ -3,6 +3,13 @@
 #include "level.h"
 #include "bullet.h"
 
+void camera_shake(SDL_Window* win, int intensity, int duration){
+	for(int i = 0; i < duration; i++){
+		SDL_Delay(10);
+		
+	}
+}
+
 level new_level(char* title, int left, int right, int tracker, int stationary){
 	level lv;
 	lv.title = title;
@@ -27,4 +34,5 @@ void run_level(SDL_Window* win, level lv, bullet* bullets){
 	for(int i = 0; i < lv.stationary; i++){
 		push_bullet(bullets, new_stationary_bullet());
 	}
+	camera_shake(win, 100, 10);
 }

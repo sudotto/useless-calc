@@ -5,6 +5,8 @@
 
 #include "bullet.h"
 
+void camera_shake(SDL_Window* win, int intensity, int duration);
+
 typedef struct {
 	char* title;
 	int left;
