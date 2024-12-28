@@ -1,7 +1,7 @@
 #ifndef BULLET_H
 #define BULLET_H
 
-#define DEBUG 1
+#define DEBUG 0
 
 #define WIN_W 600
 #define WIN_H 600
